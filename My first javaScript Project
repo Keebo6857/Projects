@@ -1,0 +1,90 @@
+function start(){
+    question();
+}
+
+function question(){
+    var encrypt = readBoolean("Do you want me to encrypt a message? ");
+    if(encrypt == true){
+        var strArray = '';
+        var message = readLine("What do you want to encrypt? ");
+        let strArray1 = cipher(message, strArray);
+        question2(message, strArray, strArray1);
+    }else{
+       println("Goodbye.");
+    
+    }
+}
+
+function cipher(str,strArray) {
+
+    for(var i = 0; i < str.length; i++){
+        str.charCodeAt(i);
+        if(str.charCodeAt(i) >= 78 && str.charCodeAt(i) < 96) {
+            strArray = strArray.concat(String.fromCharCode(str.charCodeAt(i) - 13));
+        }else if(str.charCodeAt(i) >= 65 && str.charCodeAt(i) <= 77 && str.charCodeAt(i) < 96) {
+            strArray = strArray.concat(String.fromCharCode(str.charCodeAt(i) + 13));
+        }else if(str.charCodeAt(i) >= 110 && str.charCodeAt(i) > 79) {
+            strArray = strArray.concat(String.fromCharCode(str.charCodeAt(i) - 13));
+        }else if(str.charCodeAt(i) >= 96 && str.charCodeAt(i) <= 109 && str.charCodeAt(i) > 79) {
+            strArray = strArray.concat(String.fromCharCode(str.charCodeAt(i) + 13));
+        }else if(str.charCodeAt(i) == 32) {
+            strArray = strArray.concat(" ");
+        }else {
+            strArray = strArray.concat(str.charCodeAt(i), ' ');
+        }
+    }
+  console.log("Your encrypted message is: " + strArray);
+  return strArray; 
+}
+
+function question2(str,strArray, strArray1){
+    var ask = readBoolean("Do you want to see your encrypted message in ASCII? ");
+    if(ask === true){
+        ascii(str,strArray);
+    }else{
+        println("Ok. ");
+    }
+    question3(str,strArray, strArray1);
+}
+
+function question3(str,strArray, strArray1){
+    var again = readBoolean("Do you want to encrypt another message? ");
+    var strArray2 = '';
+    if(again === true){
+        var message2 = readLine("What do you want encrypted? ");
+        cipher(message2, strArray2);
+        var bind = readBoolean("Do you want to combine the two messages together? ");
+        if(bind){
+            console.log("Your combined message is: " + strArray1 + " " + cipher(message2, strArray2) );
+        }else{
+            console.log("Goodbye. ");
+        }
+    }else{
+        console.log("Goodbye. ")
+    }
+}
+
+function ascii(str,strArray){
+    for(var i = 0; i < str.length; i++){
+        str.charCodeAt(i); 
+        if(str.charCodeAt(i) >= 78 && str.charCodeAt(i) < 96) {
+            strArray = strArray.concat(str.charCodeAt(i) - 13);
+            strArray = strArray.concat(" ");
+        }else if(str.charCodeAt(i) >= 65 && str.charCodeAt(i) <= 77 && str.charCodeAt(i) < 96) {
+            strArray = strArray.concat(str.charCodeAt(i) + 13);
+            strArray = strArray.concat(" ");
+        }else if(str.charCodeAt(i) >= 110 && str.charCodeAt(i) > 79) {
+            strArray = strArray.concat(str.charCodeAt(i) - 13);
+            strArray = strArray.concat(" ");
+        }else if(str.charCodeAt(i) >= 96 && str.charCodeAt(i) <= 109 && str.charCodeAt(i) > 79) {
+            strArray = strArray.concat(str.charCodeAt(i) + 13);
+            strArray = strArray.concat(" ");
+        }else if(str.charCodeAt(i) == 32) {
+            strArray = strArray.concat(" ");
+        }else {
+            strArray = strArray.concat(str.charCodeAt(i), ' ');
+        }
+    }
+    console.log("Your encrypted message in ASCII is: " +strArray);
+    return strArray;
+}
